@@ -5,27 +5,53 @@ Perfect for showcasing container orchestration skills **without an Ingress contr
 
 ---
 
-## 📁 Project Structure
-
-KUBERNETES/
-├── deployments/
-│ ├── db-deployment.yaml
-│ ├── redis-deployment.yaml
-│ ├── result-deployment.yaml
-│ ├── vote-deployment.yaml
-│ └── worker-deployment.yaml
-│
-├── pod-manifests/
-│ ├── db-pod.yaml
-│ ├── redis-pod.yaml
-│ ├── result-app-pod.yaml
-│ ├── voting-app-pod.yaml
-│ └── worker-pod.yaml
-│
-└── services/
-├── db-service.yaml
-├── redis-service.yaml
-├── result-service.yaml
-└── vote-service.yaml
+| Component  | Technology    | Purpose                  |
+| ---------- | ------------- | ------------------------ |
+| **vote**   | Python Flask  | Frontend voting app      |
+| **result** | Node.js       | Results display page     |
+| **worker** | .NET / Python | Background job processor |
+| **redis**  | Redis         | Message queue            |
+| **db**     | PostgreSQL    | Data storage             |
 
 
+- **`deployments/`** → Kubernetes Deployments (recommended over raw Pods)
+- **`pod-manifests/`** → Raw Pod YAMLs (for manual testing/learning; not for production)
+- **`services/`** → ClusterIP or NodePort Services for each component
+
+---
+
+## 🚀 Getting Started
+
+### 1️⃣ Start Minikube
+```bash
+minikube start
+
+2️⃣ Apply Deployments and Services
+(Only use deployments/ and services/; ignore pod-manifests/ unless testing manually.)
+
+kubectl apply -f deployments/
+kubectl apply -f services/
+
+3️⃣ Access the Frontend App
+Expose the vote service:
+minikube service vote
+
+This will open a URL like:
+http://127.0.0.1:<random-port>
+
+🧹 Clean Up
+To remove everything:
+kubectl delete -f deployments/
+kubectl delete -f services/
+
+To stop Minikube:
+minikube stop
+
+🧠 Why This Project?
+Practice Kubernetes basics
+
+Understand Deployments, Pods, and Services
+
+Learn local DevOps with Minikube
+
+Showcase Kubernetes skills in your GitHub portfolio
